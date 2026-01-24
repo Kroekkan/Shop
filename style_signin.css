@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins' , sans-serif;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.278);
+}
+.container{
+    width: 680px;
+}
+.entryarea{
+    position: relative;
+    height: 80px;
+    line-height: 80px;
+    margin: 30px;
+}
+.name {
+    color: #ff00d98b;
+}
+h1 {
+    color: #000000;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2em;
+}
+h2 {
+    color: #000000;
+    margin-left: 30px;
+    font-size: 1.5em;
+}
+.entryarea input{
+    position: absolute;
+    width: 100%;
+    outline: none;
+    font-size: 2.2em;
+    padding: 0 30px;
+    line-height: 80px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    background: transparent;
+    transition: 0.1s ease;
+    z-index: 1111;
+}
+.bg {
+    width: 680px;
+    height: auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 35px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login input {
+    width: 200px;
+    padding: 15px;
+    font-size: 1.8em;
+    color: #000000;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+.login input:hover {
+    border: 2px solid #ff00d98b;
+    color: #ff00d98b;
+}
+.lavelline{
+    position: absolute;
+    font-size: 1.6em;
+    color: #000000;
+    padding: 0 25px;
+    background-color: white;
+    margin: 0 20px;
+    transition: 0.2s ease;
+}
+.entryarea input:focus,
+.entryarea input:valid{
+    color: #ff00d98b;
+    border: 4px solid #ff00d98b;
+}
+.entryarea input:focus + .lavelline,
+.entryarea input:valid + .lavelline{
+    color: #ff00d98b;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+    transform: translate(-15px,-16px) scale(0.88);
+    z-index: 1111;
+}
+.login{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px;
+}
+.signin {
+    font-size: 1.5em;
+}
+.signin a {
+    text-decoration: none;
+    color: #000000;
+}
+.signin a:hover {
+    color: #ff00d98b;
+}
+.error {
+    margin: 30px;
+    color: rgb(255, 0, 0);
+    font-size: 1.2em;
+}
+.success {
+    margin: 30px;
+    color: green;
+    font-size: 1.2em;
+}
+.error-text {
+    color: red;
+    font-size: 0.9em;
+}

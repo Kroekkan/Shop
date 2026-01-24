@@ -1,0 +1,34 @@
+/* ===== Reset & Font ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+body {
+    background: #f5f6fa;
+    padding: 40px;
+    color: #333;
+}
+
+/* ===== Title ===== */
+h2 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* ===== Form ===== */
+form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+}
