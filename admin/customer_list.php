@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="admin_style.css"> </head>
 <body>
+    <?php require 'connect.php'; ?>
     <?php include 'sidebar.php'; ?>
 
     <div class="main-content">
@@ -16,8 +17,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>ชื่อ-นามสกุล</th>
-                        <th>อีเมล</th>
+                        <th>ชื่อ</th>
+                        <th>รหัสผ่าน</th>
                         <th>สถานะปัจจุบัน</th>
                         <th>การจัดการ</th>
                     </tr>
