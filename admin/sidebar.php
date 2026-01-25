@@ -9,7 +9,7 @@
         <a href="manage_products.php" class="nav-item">🎁 จัดการสินค้า</a>
         <a href="order_history.php" class="nav-item">📜 ประวัติการสั่งซื้อ</a>
         <div class="nav-divider"></div>
-        <a href="index.php" class="nav-item logout">🌐 ไปหน้าเว็บหลัก</a>
+        <a href="../index.php" class="nav-item logout">🌐 ไปหน้าเว็บหลัก</a>
     </nav>
 </div>
 
