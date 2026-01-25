@@ -5,8 +5,9 @@
     </div>
     <nav class="nav-menu">
         <a href="admin_dashboard.php" class="nav-item">📊 แผงควบคุม</a>
-        <a href="manage_products.php" class="nav-item">🎁 จัดการสินค้า</a>
         <a href="customer_list.php" class="nav-item">👥 ข้อมูลลูกค้า</a>
+        <a href="manage_products.php" class="nav-item">🎁 จัดการสินค้า</a>
+        <a href="order_history.php" class="nav-item">📜 ประวัติการสั่งซื้อ</a>
         <div class="nav-divider"></div>
         <a href="index.php" class="nav-item logout">🌐 ไปหน้าเว็บหลัก</a>
     </nav>
@@ -44,4 +45,5 @@
 </style>
 <li><a href="admin_dashboard.php">📊 แผงควบคุม</a></li>
 <li><a href="manage_products.php">🎁 จัดการสินค้า</a></li>
-<li><a href="order_history.php">📜 ประวัติการสั่งซื้อ</a></li> <li><a href="customer_list.php">👥 ข้อมูลลูกค้า</a></li>
+<li><a href="order_history.php">📜 ประวัติการสั่งซื้อ</a></li> 
+<li><a href="customer_list.php">👥 ข้อมูลลูกค้า</a></li>

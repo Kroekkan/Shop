@@ -1,3 +1,13 @@
+<?php 
+
+    require 'connect.php'; 
+
+    $sql = "SELECT * FROM account";
+
+    $result = mysqli_query($connect, $sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -6,8 +16,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="admin_style.css"> </head>
 <body>
-    <?php require 'connect.php'; ?>
-    <?php include 'sidebar.php'; ?>
+    <?php 
+    
+    include 'sidebar.php'; 
+    
+    ?>
 
     <div class="main-content">
         <h1>👥 จัดการข้อมูลลูกค้าและสถานะ</h1>
@@ -24,24 +37,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>C001</td>
-                        <td>คุณสมชาย รักดี</td>
-                        <td>somchai@email.com</td>
-                        <td><span class="badge user">User</span></td>
-                        <td>
-                            <button class="btn-edit-user" onclick="openEditModal('C001', 'คุณสมชาย รักดี', 'somchai@email.com', 'User')">📝 แก้ไข</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>A001</td>
-                        <td>แอดมินตุ๊กตา</td>
-                        <td>admin@dollshop.com</td>
-                        <td><span class="badge admin">Admin</span></td>
-                        <td>
-                            <button class="btn-edit-user" onclick="openEditModal('A001', 'แอดมินตุ๊กตา', 'admin@dollshop.com', 'Admin')">📝 แก้ไข</button>
-                        </td>
-                    </tr>
+                    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
+                            <td><?php echo $row["id_account"]; ?></td>
+                            <td><?php echo $row["username_account"]; ?></td>
+                            <td><?php echo $row["password_account"]; ?></td>
+
+                            <?php   
+
+                            $role = $row["role_account"];   // เช่น User หรือ Admin
+                            $roleClass = strtolower($role); // user / admin
+
+                            ?>
+
+                            <td><span class="badge <?= $roleClass; ?>"><?= htmlspecialchars($role); ?></span></td>
+                            <td>
+                                <button class="btn-edit-user"
+                                    onclick="openEditModal(
+                                        '<?= $row['id_account']; ?>',
+                                        '<?= $row['username_account']; ?>',
+                                        '<?= $row['password_account']; ?>',
+                                        '<?= $row['role_account']; ?>',
+                                        'User'
+                                )">
+                                    📝 แก้ไข
+                                </button>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -53,29 +76,29 @@
                 <h3>แก้ไขข้อมูลสมาชิก</h3>
                 <span class="close-btn" onclick="closeModal()">&times;</span>
             </div>
-            <form action="update_customer.php" method="POST">
-                <input type="hidden" name="customer_id" id="edit_id">
+            <form id="editForm" action="update_customer.php" method="POST">
+                <input type="hidden" name="id_account" id="id_account">
                 
                 <div class="form-group">
-                    <label>ชื่อ-นามสกุล</label>
-                    <input type="text" name="full_name" id="edit_name" required>
+                    <label>ชื่อ</label>
+                    <input type="text" name="username_account" id="username_account" required>
                 </div>
 
                 <div class="form-group">
-                    <label>อีเมล</label>
-                    <input type="email" name="email" id="edit_email" required>
+                    <label>รหัสผ่าน</label>
+                    <input type="text" name="password_account" id="password_account" required>
                 </div>
 
                 <div class="form-group">
                     <label>ปรับระดับสิทธิ์ (Role)</label>
-                    <select name="role" id="edit_role">
+                    <select name="role_account" id="role_account">
                         <option value="User">User (ลูกค้าทั่วไป)</option>
                         <option value="Admin">Admin (ผู้ดูแลระบบ)</option>
                     </select>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn-confirm">บันทึกการเปลี่ยนแปลง</button>
+                    <button type="submit" class="btn-confirm">💾 บันทึกการเปลี่ยนแปลง</button>
                     <button type="button" class="btn-cancel" onclick="closeModal()">ยกเลิก</button>
                 </div>
             </form>
@@ -83,13 +106,34 @@
     </div>
 
     <script>
-        function openEditModal(id, name, email, role) {
-            document.getElementById('edit_id').value = id;
-            document.getElementById('edit_name').value = name;
-            document.getElementById('edit_email').value = email;
-            document.getElementById('edit_role').value = role;
+
+        function openEditModal(id, name, password, role) {
+            document.getElementById('id_account').value = id;
+            document.getElementById('username_account').value = name;
+            document.getElementById('password_account').value = password;
+            document.getElementById('role_account').value = role;
             document.getElementById('editCustomerModal').style.display = 'flex';
         }
+
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('update_user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(text => {
+                console.log('SERVER RESPONSE:', text);
+                alert(text);
+            })
+            .catch(err => {
+                console.error('FETCH ERROR:', err);
+                alert('เชื่อมต่อ server ไม่ได้');
+            });
+        });
 
         function closeModal() {
             document.getElementById('editCustomerModal').style.display = 'none';
@@ -105,8 +149,22 @@
     <style>
         /* สไตล์เพิ่มเติมสำหรับหน้า Customer */
         .badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-        .user { background: #e3f2fd; color: #1976d2; }
-        .admin { background: #fce4ec; color: #d81b60; }
+        .badge.user {
+            background: #e0f2fe;
+            color: #1976d2;
+        }
+
+        .badge.admin {
+            background: #fee2e2;
+            color: #d81b60;
+        }
+
+        .badge.staff {
+            background: #ecfeff;
+            color: #155e75;
+        }
+        /* .user { background: #e3f2fd; color: #1976d2; }
+        .admin { background: #fce4ec; color: #d81b60; } */
 
         .btn-edit-user {
             background: #fff; border: 1px solid #ddd; padding: 6px 12px;
