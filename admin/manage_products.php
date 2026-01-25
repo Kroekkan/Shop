@@ -116,10 +116,10 @@
                     required
                     onchange="previewAddFile(this)">
             </div>
-            <div class="modal-footer">
-                    <button type="submit" name="add" class="btn-confirm">💾 บันทึกสินค้า</button>
-                    <button type="button" class="btn-cancel" onclick="closeAddModal()">ยกเลิก</button>
-                </div>
+        <div class="modal-footer">
+                <button type="submit" name="add" class="btn-confirm">💾 บันทึกสินค้า</button>
+                <button type="button" class="btn-cancel" onclick="closeAddModal()">ยกเลิก</button>
+            </div>
             </form>
         </div>
     </div>
@@ -249,7 +249,7 @@
             event.target.style.display = 'none';
         }
     }
-
+    
     function openAddModal() {
         document.getElementById('addProductModal').style.display = 'flex';
     }
