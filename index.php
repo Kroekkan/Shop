@@ -1,9 +1,9 @@
 <?php
 
+    session_start();
     include 'admin/connect.php';
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -38,7 +38,26 @@
                     <a href="#" class="text-lg font-mono font-bold text-white hover:text-pink-300">Basket</a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="form_login.php" class="text-lg text-white hover:text-pink-300">Log in <span aria-hidden="true">&rarr;</span></a>
+                    <?php if (isset($_SESSION['username_account'])) : ?>
+
+                        <!-- กรณี login แล้ว -->
+                        <span class="text-lg text-white">
+                            👤 <?php echo htmlspecialchars($_SESSION['username_account']); ?>
+                        </span>
+
+                        <!-- (ตัวเลือก) ปุ่ม Logout -->
+                        <a href="logout.php" class="ml-4 text-lg text-pink-300 hover:text-white">
+                            Logout
+                        </a>
+
+                    <?php else : ?>
+
+                        <!-- กรณียังไม่ login -->
+                        <a href="form_login.php" class="text-lg text-white hover:text-pink-300">
+                            Log in <span aria-hidden="true">&rarr;</span>
+                        </a>
+
+                    <?php endif; ?>
                 </div>
             </nav>
         </header>
