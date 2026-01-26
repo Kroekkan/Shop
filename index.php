@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plush & Play</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -281,6 +282,36 @@
             opacity: 0;
         }
     </style>
+
+    <?php if (isset($_SESSION['flash'])): ?>
+    <script>
+        <?php if ($_SESSION['flash'] === 'login_success'): ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Login สำเร็จ 🎉',
+                text: 'ยินดีต้อนรับเข้าสู่ระบบ',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        <?php elseif ($_SESSION['flash'] === 'logout_success'): ?>
+            Swal.fire({
+                icon: 'info',
+                title: 'Logout สำเร็จ 👋',
+                text: 'ออกจากระบบเรียบร้อยแล้ว',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        <?php elseif ($_SESSION['flash'] === 'signup_success'): ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'สมัครสมาชิกสำเร็จ 🎊',
+                text: 'กรุณาเข้าสู่ระบบ',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        <?php endif; ?>
+    </script>
+    <?php unset($_SESSION['flash']); endif; ?>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>

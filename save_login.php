@@ -2,6 +2,9 @@
 session_start();
 require ('admin/connect.php');
 
+$_SESSION['flash'] = "login_success";
+header("Location: index.php");
+
 if (!isset($_POST['username_account'], $_POST['password_account'])) {
     header("Location: login.php");
     exit();
@@ -41,4 +44,5 @@ if (mysqli_num_rows($result) > 0) {
     header("Location: form_login.php?error=user_not_found");
     exit();
 }
+
 ?>
