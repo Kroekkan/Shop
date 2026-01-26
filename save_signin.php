@@ -6,12 +6,6 @@
     $password = $_POST['password_account'];
     $confirm  = $_POST['confirm_password'];
 
-    if ($password !== $confirm) {
-    echo "<p style='color:red;'>รหัสผ่านไม่ตรงกัน</p>";
-    echo "<a href='javascript:history.back()'>กลับไปแก้ไข</a>";
-    exit;
-}
-
     $sql = "INSERT INTO account (username_account, password_account) VALUES ('$username', '$password')";
 
     $result = mysqli_query($connect, $sql);
