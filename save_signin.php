@@ -1,6 +1,6 @@
 <?php
 
-    require('connect.php');
+    require('admin/connect.php');
 
     $username = $_POST['username_account'];
     $password = $_POST['password_account'];

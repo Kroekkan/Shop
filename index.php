@@ -11,11 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plush & Play</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="bg-while">
+    <div class="bg-while" id="Home">
         <header class="absolute inset-x-0 top-0 z-50">
             <!-- navber -->
             <nav id="navbar" class="flex items-center justify-between p-6 lg:px-8 fixed top-0 w-full z-50 transition-shadow">
@@ -93,14 +93,14 @@
             </div>
 
             <!-- NAV -->
-            <div id="Home" class="nav scroll-mt-20">
+            <!-- <div id="Home" class="nav scroll-mt-20">
                 <span class="active" onclick="goSlide(0)">TEMERARIO</span>
                 <span onclick="goSlide(1)">REVUELTO</span>
                 <span onclick="goSlide(2)">URUS SE</span>
-            </div>
+            </div> -->
 
             <!-- SLIDER -->
-            <div class="slider" id="slider">
+            <!-- <div class="slider" id="slider">
 
                 <section class="slide">
                     <div class="text">
@@ -140,11 +140,10 @@
                         <img src="images/urus.png">
                     </div>
                 </section>
-
-            </div>
+            </div> -->
 
             <!-- PRODUCT SECTION -->
-            <section id="productSection">
+            <!-- <section id="productSection">
                 <h2>Product Details</h2>
 
                 <div class="products">
@@ -166,7 +165,7 @@
                         <p>Advanced Driving System</p>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
             <!-- สินค้า -->
             <section id="Product" class="bg-white max-w-7xl mx-auto px-6 py-10 scroll-mt-20">
@@ -253,7 +252,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> -->
     <script src="script.js"></script>
 </body>
 </html>
