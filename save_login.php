@@ -10,7 +10,7 @@ if (!isset($_POST['username_account'], $_POST['password_account'])) {
 $username = $_POST['username_account'];
 $password = $_POST['password_account'];
 
-$check_sql = "SELECT * FROM account WHERE username_account = ?";
+$check_sql = "SELECT * FROM account WHERE BINARY username_account = ?";
 
 $stmt = mysqli_prepare($connect, $check_sql);
 mysqli_stmt_bind_param($stmt, "s", $username);
@@ -25,6 +25,7 @@ if (mysqli_num_rows($result) > 0) {
 
         $_SESSION['id_account'] = $row['id_account'];
         $_SESSION['username_account'] = $row['username_account'];
+        $_SESSION['role_account'] = $row['role_account'];
 
         header("Location: index.php");
         exit();

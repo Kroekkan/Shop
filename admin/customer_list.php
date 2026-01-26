@@ -2,6 +2,14 @@
 
     require 'connect.php'; 
 
+    session_start();
+
+    if (!isset($_SESSION['role_account']) || $_SESSION['role_account'] !== 'Admin') {
+        // ถ้าไม่ใช่ admin เตะออก
+        header("Location: ../index.php");
+        exit();
+    }
+
     $sql = "SELECT * FROM account";
 
     $result = mysqli_query($connect, $sql);

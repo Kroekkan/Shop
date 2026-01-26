@@ -37,24 +37,38 @@
                     <a href="#" class="text-lg font-mono font-bold text-white hover:text-pink-300">Contact</a>
                     <a href="#" class="text-lg font-mono font-bold text-white hover:text-pink-300">Basket</a>
                 </div>
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
                     <?php if (isset($_SESSION['username_account'])) : ?>
+                        <?php
+                            $icon = '👤';
+                            if (!empty($_SESSION['role_account']) && $_SESSION['role_account'] === 'Admin') {
+                                $icon = '👑';
+                            }
+                        ?>
 
-                        <!-- กรณี login แล้ว -->
-                        <span class="text-lg text-white">
-                            👤 <?php echo htmlspecialchars($_SESSION['username_account']); ?>
+                        <!-- ชื่อผู้ใช้ -->
+                        <span class="text-lg text-white font-semibold">
+                            <?php echo $icon; ?>
+                            <?php echo htmlspecialchars($_SESSION['username_account']); ?>
                         </span>
 
-                        <!-- (ตัวเลือก) ปุ่ม Logout -->
-                        <a href="logout.php" class="ml-4 text-lg text-pink-300 hover:text-white">
+                        <!-- 🔐 เมนู Admin (เฉพาะ admin) -->
+                        <?php if (!empty($_SESSION['role_account']) && $_SESSION['role_account'] === 'Admin') : ?>
+                            <a href="admin/admin_dashboard.php" 
+                            class="flex items-center gap-1 text-lg text-yellow-300 hover:text-yellow-400 font-semibold">
+                                🛠 Admin
+                            </a>
+                        <?php endif; ?>
+
+                        <!-- Logout -->
+                        <a href="logout.php" class="text-lg text-pink-300 hover:text-white">
                             Logout
                         </a>
 
                     <?php else : ?>
 
-                        <!-- กรณียังไม่ login -->
                         <a href="form_login.php" class="text-lg text-white hover:text-pink-300">
-                            Log in <span aria-hidden="true">&rarr;</span>
+                            Log in →
                         </a>
 
                     <?php endif; ?>
