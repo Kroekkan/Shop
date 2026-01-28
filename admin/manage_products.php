@@ -22,7 +22,7 @@
     <meta charset="UTF-8">
     <title>Manage Products | Doll Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="admin_style.css"> </head>
+    <link rel="stylesheet" herf="admin_style.css">
 </head>
 <body>
     <?php include 'sidebar.php'; ?>
