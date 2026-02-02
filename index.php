@@ -35,8 +35,23 @@
                 <div class="hidden lg:flex lg:gap-x-12">
                     <a href="#Home" class="nav-link text-lg font-mono font-bold text-white hover:text-pink-300">Home</a>
                     <a href="#Product" class="nav-link text-lg font-mono font-bold text-white hover:text-pink-300">Product</a>
-                    <a href="#" class="text-lg font-mono font-bold text-white hover:text-pink-300">Contact</a>
-                    <a href="#" class="text-lg font-mono font-bold text-white hover:text-pink-300">Basket</a>
+                        <a href="cart.php" style="position:relative">
+                            🛒
+                            <span id="cart-count"
+                                style="
+                                    position:absolute;
+                                    top:-5px;
+                                    right:-10px;
+                                    background:red;
+                                    color:white;
+                                    border-radius:50%;
+                                    padding:2px 6px;
+                                    font-size:12px;">
+                                <?= isset($_SESSION['cart']) 
+                                    ? array_sum(array_column($_SESSION['cart'],'qty')) 
+                                    : 0 ?>
+                            </span>
+                        </a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
                     <?php if (isset($_SESSION['username_account'])) : ?>
@@ -126,81 +141,6 @@
                 </button>
             </div>
 
-            <!-- NAV -->
-            <!-- <div id="Home" class="nav scroll-mt-20">
-                <span class="active" onclick="goSlide(0)">TEMERARIO</span>
-                <span onclick="goSlide(1)">REVUELTO</span>
-                <span onclick="goSlide(2)">URUS SE</span>
-            </div> -->
-
-            <!-- SLIDER -->
-            <!-- <div class="slider" id="slider">
-
-                <section class="slide">
-                    <div class="text">
-                        <h1>TEMERARIO</h1>
-                        <div class="buttons">
-                            <a href="#productSection" class="btn-primary">START CONFIGURATION</a>
-                            <a href="#productSection" class="btn-outline">EXPLORE MODEL →</a>
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src="images/temerario.png">
-                    </div>
-                </section>
-
-                <section class="slide">
-                    <div class="text">
-                        <h1>REVUELTO</h1>
-                        <div class="buttons">
-                            <a href="#productSection" class="btn-primary">START CONFIGURATION</a>
-                            <a href="#productSection" class="btn-outline">EXPLORE MODEL →</a>
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src="images/revuelto.png">
-                    </div>
-                </section>
-
-                <section class="slide">
-                    <div class="text">
-                        <h1>URUS SE</h1>
-                        <div class="buttons">
-                            <a href="#productSection" class="btn-primary">START CONFIGURATION</a>
-                            <a href="#productSection" class="btn-outline">EXPLORE MODEL →</a>
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src="images/urus.png">
-                    </div>
-                </section>
-            </div> -->
-
-            <!-- PRODUCT SECTION -->
-            <!-- <section id="productSection">
-                <h2>Product Details</h2>
-
-                <div class="products">
-                    <div class="product">
-                        <img src="images/detail1.png">
-                        <h3>Engine Performance</h3>
-                        <p>V12 Hybrid Engine</p>
-                    </div>
-
-                    <div class="product">
-                        <img src="images/detail2.png">
-                        <h3>Interior Design</h3>
-                        <p>Luxury & Sport Interior</p>
-                    </div>
-
-                    <div class="product">
-                        <img src="images/detail3.png">
-                        <h3>Technology</h3>
-                        <p>Advanced Driving System</p>
-                    </div>
-                </div>
-            </section> -->
-
             <!-- สินค้า -->
             <section id="Product" class="bg-white max-w-7xl mx-auto px-6 py-10 scroll-mt-20">
                 <h1 class="text-5xl text-center mb-10">Product</h1>
@@ -212,37 +152,29 @@
                         while($row = mysqli_fetch_assoc($result)){
                         echo "
                         <div class='p-6 bg-white rounded-3xl shadow-[0_0_20px_rgba(0,0,0,0.15)] cursor-pointer hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] transition'>
-                        <a href='#'>
-                            <img
-                            class='w-full h-40 object-cover mb-4 rounded-2xl' 
-                            src='admin/upload/{$row['image']}'
-                            alt='รูปภาพสินค้า'>
-                        </a>
-                        <dl class='grid grid-cols-2 gap-x-4'>
-                            <dt>ชื่อสินค้า</dt>
-                            <dd class='p-1 text-right slashed-zero tabular-nums'>{$row['name']}</dd>
-                            <dt>ราคา</dt>
-                            <dd class='p-1 text-right slashed-zero tabular-nums'>฿{$row['price']}</dd>
-                        </dl>
-                            <button class='block mx-auto bg-pink-300 rounded-3xl mt-2 pl-4 pr-4 pt-3 pb-3 text-white font-bold shadow-[0_0_20px_rgba(0,0,0,0.15)] hover:text-black'>Add to cart</button>
+
+                            <a href='#'>
+                                <img
+                                class='w-full h-40 object-cover mb-4 rounded-2xl' 
+                                src='admin/upload/{$row['image']}'
+                                alt='รูปภาพสินค้า'>
+                            </a>
+
+                            <dl class='grid grid-cols-2 gap-x-4'>
+                                <dt>ชื่อสินค้า</dt>
+                                <dd class='p-1 text-right slashed-zero tabular-nums'>{$row['name']}</dd>
+                                <dt>ราคา</dt>
+                                <dd class='p-1 text-right slashed-zero tabular-nums'>฿{$row['price']}</dd>
+                            </dl>
+                            
+                            <button class='add-to-cart block mx-auto bg-pink-300 rounded-3xl mt-2 px-6 py-3 text-white font-bold'
+                                    data-id='{$row['id']}' ?>
+                                Add to cart
+                            </button>
+
                         </div>";
                         }
                     ?>
-                    <!-- <div class="min-w-64 h-85 p-6 bg-white rounded-3xl shadow-[0_0_20px_rgba(0,0,0,0.15)] cursor-pointer hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] transition">
-                        <a href="#">
-                            <img
-                            class='w-full h-40 object-cover mb-4 rounded-2xl' 
-                            src='px/2.png'
-                            alt='รูปภาพสินค้า'>
-                        </a>
-                        <dl class='grid grid-cols-2 gap-x-4'>
-                            <dt>ชื่อสินค้า</dt>
-                            <dd class='p-1 text-right slashed-zero tabular-nums'>Noname</dd>
-                            <dt>ราคา</dt>
-                            <dd class='p-1 text-right slashed-zero tabular-nums'>฿0.00</dd>
-                        </dl>
-                        <button class='block mx-auto bg-pink-300 rounded-3xl mt-2 pl-4 pr-4 pt-3 pb-3 text-white font-bold shadow-[0_0_20px_rgba(0,0,0,0.15)] hover:text-black'>Add to cart</button>
-                    </div> -->
                 </div> 
             </section>
         </main>
@@ -312,6 +244,36 @@
         <?php endif; ?>
     </script>
     <?php unset($_SESSION['flash']); endif; ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+    $('.add-to-cart').click(function () {
+
+        let productId = $(this).data('id');
+
+        $.ajax({
+            url: 'add_to_cart.php',
+            type: 'POST',
+            data: { product_id: productId },
+            dataType: 'json',
+            success: function (res) {
+
+                // อัปเดตจำนวนสินค้า
+                $('#cart-count').text(res.total_qty);
+
+                // SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'เพิ่มสินค้าในตะกร้าแล้ว',
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+            }
+        });
+    });
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
