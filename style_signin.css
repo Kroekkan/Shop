@@ -22,6 +22,7 @@ body{
 }
 .name {
     color: #ff00d98b;
+    text-decoration: none;
 }
 h1 {
     color: #000000;

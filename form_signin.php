@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="bg">
-            <h1>Welcome to <span class="name">Plush & Play</span></h1>
+            <h1>Welcome to <a href="index.php" class="name">Plush & Play</a></h1>
             <h2>Sign up</h2>
             <form action="save_signin.php" method="POST" onsubmit="return checkPassword();">
                 <div class="entryarea">

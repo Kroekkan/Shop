@@ -8,6 +8,7 @@
         <a href="customer_list.php" class="nav-item">👥 ข้อมูลลูกค้า</a>
         <a href="manage_products.php" class="nav-item">🎁 จัดการสินค้า</a>
         <a href="order_history.php" class="nav-item">📜 ประวัติการสั่งซื้อ</a>
+        <a href="admin_payment.php" class="nav-item">📜 ออเดอร์</a>
         <div class="nav-divider"></div>
         <a href="../index.php" class="nav-item logout">🌐 ไปหน้าเว็บหลัก</a>
     </nav>

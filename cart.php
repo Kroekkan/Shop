@@ -19,7 +19,7 @@ session_start();
 
 <body>
     <div class="container">
-        <h1 class="text-center">ข้อมูลสินค้าในตะกร้า</h1>
+        <h1 class="text-center">🛒ตะกร้าสินค้า</h1>
         <hr>
 
     <?php if (!empty($_SESSION['cart'])) { ?>

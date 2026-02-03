@@ -1,12 +1,17 @@
 <?php
 
-require ("admin/connect.php");
+    session_start();
 
-$sql = "SELECT * FROM products";
+    require ("admin/connect.php");
 
-$result = mysqli_query($connect,$sql);
+    $sql = "SELECT * FROM products";
 
-$count = mysqli_num_rows($result);
+    $result = mysqli_query($connect,$sql);
+
+    $count = mysqli_num_rows($result);
+
+    $total = 0;
+    $count = 0;
 
 ?>
 <!DOCTYPE html>
@@ -22,76 +27,63 @@ $count = mysqli_num_rows($result);
     <div class="container col-8 my-5 br-2 p-5 rounded pp-3 mb-2 bg-white text-dark">
         <div class="row">
             <div class="col-8">
-                <h4>Billing Address</h4>
-                <form>
+                <h4>ที่อยู่ผู้รับ</h4>
+                <form action="payment.php" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-6">
-                            <label class="form-label" for="fname">Frist name</label>
-                            <input type="text" id="fname" class="form-control">
+                            <label class="form-label" for="fname">ชื่อ:</label>
+                            <input type="text" name="fname" class="form-control" required>
                         </div>
                         <div class="col-6">
-                            <label class="form-label" for="lname">Last name</label>
-                            <input type="text" id="lname" class="form-control">
+                            <label class="form-label" for="lname">นามสกุล:</label>
+                            <input type="text" name="lname" class="form-control" required>
                         </div>
                         <div class="col-12">
-                            <label class=""form-control for="address">Address</label>
+                            <label class=""form-control for="address">ที่อยู่:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="address">
+                                <input type="text" name="address" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-6">
-                            <label class="form-label" for="number">Number</label>
-                            <input type="text" id="number" class="form-control">
+                            <label class="form-label" for="number">เบอร์โทร:</label>
+                            <input type="text" name="phone" class="form-control" required>
                         </div>
-                        <h4></h4>
                         <hr>
-                        <h4>Playment</h4>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input">
-                            <label class="form-check-label" >แสกนจ่าย</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input">
-                            <label class="form-check-label" >ชำระปลายทาง</label>
-                        </div>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-primary btn-block">Comtinue To Checkout</button>
+                    <button type="submit" class="btn btn-primary btn-block">ชำระเงิน</button>
+                    <a href="cart.php" class="btn btn-danger btn-block">ยกเลิก</a>
                 </form>
             </div>
             <div class="col-4">
-                <h4 class="d-flex justify-content-between align-item-center">
-                    <span class="text-muted">Your Cart</span>
-                    <span calss="badge tg-seconded-pill">3</span>
+                <h4 class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted">ตะกร้าของคุณ</span>
+                    <span class="badge bg-secondary rounded-pill">
+                        <?= count($_SESSION['cart']) ?>
+                    </span>
                 </h4>
-                <ul class="list-group">
+
+                <ul class="list-group mb-3">
+
+                    <?php foreach($_SESSION['cart'] as $item): 
+                        $sum = $item['price'] * $item['qty'];
+                        $total += $sum;
+                        $count += $item['qty'];
+                    ?>
                     <li class="list-group-item d-flex justify-content-between">
                         <div>
-                            <h6>รายการสินค้า</h6>
-                            <span class="text-mutedd">fdgdfg</span>
+                            <h6 class="my-0"><?= $item['name'] ?></h6>
+                            <small class="text-muted">
+                                x<?= $item['qty'] ?>
+                            </small>
                         </div>
-                        <span class="text-muted">500$</span>
+                        <span class="text-muted"><?= number_format($sum) ?> ฿</span>
                     </li>
+                    <?php endforeach; ?>
+
                     <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>รายการสินค้า</h6>
-                            <span class="text-mutedd">fdgdfg</span>
-                        </div>
-                        <span class="text-muted">500$</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>รายการสินค้า</h6>
-                            <span class="text-mutedd">fdgdfg</span>
-                        </div>
-                        <span class="text-muted">500$</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>total</h6>
-                            <span class="text-mutedd"></span>
-                        </div>
-                        <span class="text-muted">500$</span>
+                        <strong>รวมทั้งหมด</strong>
+                        <strong><?= number_format($total) ?> ฿</strong>
                     </li>
                 </ul>
             </div>

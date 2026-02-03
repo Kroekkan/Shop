@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 if (!isset($_SESSION['role_account']) || $_SESSION['role_account'] !== 'Admin') {
     // ถ้าไม่ใช่ admin เตะออก
     header("Location: ../index.php");
@@ -10,9 +9,7 @@ if (!isset($_SESSION['role_account']) || $_SESSION['role_account'] !== 'Admin') 
 
 require 'connect.php';
 
-$sql = "SELECT * FROM payment 
-        WHERE status IN ('ชำระเงินแล้ว','ไม่อนุมัติ')
-        ORDER BY id DESC";
+$sql = "SELECT * FROM payment WHERE status = 'รอตรวจสอบ' ORDER BY id DESC";
 $result = mysqli_query($connect, $sql);
 
 $order = 1;
@@ -21,16 +18,18 @@ $order = 1;
 
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
-    <title>Order History | Doll Shop Admin</title>
+    <title>Dashboard | Doll Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <?php include 'sidebar.php'; ?>
 
     <div class="main-content">
-        <h1>💸 ประวัติการสั่งซื้อ</h1>
+        <h1>💸 ตรวจสอบการชำระเงิน</h1>
 
         <div class="card">
             <table class="styled-table">
@@ -62,7 +61,7 @@ $order = 1;
                                 </span>
                             </td>
                             <td>
-                                <?php $status == 'รอตรวจสอบ' ?>
+                                <?php if ($status == 'รอตรวจสอบ'): ?>
                                     <button class="btn-edit-user" onclick="openApproveModal(
                                     '<?= $row['id']; ?>',
                                     '<?= number_format($row['total'], 2); ?>',
@@ -73,7 +72,9 @@ $order = 1;
                                 )">
                                         ✅ ตรวจสอบ
                                     </button>
-                                <?php ?>
+                                <?php else: ?>
+                                    ✔ เสร็จสิ้น
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php } ?>
@@ -97,6 +98,7 @@ $order = 1;
             <p><b>เบอร์โทร:</b> <span id="show_phone"></span></p>
 
             <div class="modal-footer">
+                <button class="btn-confirm" onclick="approvePayment()">✅ อนุมัติ</button>
                 <button class="btn-cancel" onclick="closeModal()">ยกเลิก</button>
             </div>
         </div>
@@ -305,4 +307,5 @@ $order = 1;
     </style>
 
 </body>
+
 </html>

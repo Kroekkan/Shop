@@ -21,7 +21,7 @@ if (isset($_GET['error'])) {
 <body>
     <div class="container">
         <div class="bg">
-            <h1>Welcome to <span class="name">Plush & Play</span></h1>
+            <h1>Welcome to <a href="index.php" class="name">Plush & Play</a></h1>
             <h2>Login</h2>
 
             <form action="save_login.php" method="POST">
