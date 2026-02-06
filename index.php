@@ -23,15 +23,6 @@
                 <div class="flex lg:flex-1">
                     <a href="#" class="text-white font-mono text-sm">Plush & Play</a>
                 </div>
-                <!-- ขนาดจอเล็ก -->
-                <!-- <div class="flex lg:hidden">
-                    <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200">
-                        <span class="sr-only">Open main menu</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div> -->
                 <div class="hidden lg:flex lg:gap-x-12">
                     <a href="#Home" class="nav-link text-lg font-mono font-bold text-white hover:text-pink-300">Home</a>
                     <a href="#Product" class="nav-link text-lg font-mono font-bold text-white hover:text-pink-300">Product</a>
@@ -54,6 +45,8 @@
                         </a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
+
+                    <!-- เช็ค role account -->
                     <?php if (isset($_SESSION['username_account'])) : ?>
                         <?php
                             $icon = '👤';
@@ -181,6 +174,7 @@
         <footer class="bg-black mt-10">
             <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
                 <p class="text-center text-base text-gray-400">&copy; 2026 Plush & Play. All rights reserved.</p>
+                <p class="text-center text-base text-gray-400">LINE: Plush&Play | TEL:099-555-2233 | FACEBOOK: Plush&Play</p>
             </div>
         </footer>
     </div>
@@ -279,6 +273,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> -->
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 </body>
 </html>

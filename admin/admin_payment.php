@@ -62,16 +62,24 @@ $order = 1;
                             </td>
                             <td>
                                 <?php if ($status == 'รอตรวจสอบ'): ?>
+                                    
                                     <button class="btn-edit-user" onclick="openApproveModal(
-                                    '<?= $row['id']; ?>',
-                                    '<?= number_format($row['total'], 2); ?>',
-                                    '<?= $row['fname'] ?>',
-                                    '<?= $row['lname'] ?>',
-                                    '<?= $row['address'] ?>',
-                                    '<?= $row['phone'] ?>'
-                                )">
+                                        '<?= $row['id']; ?>',
+                                        '<?= number_format($row['total'], 2); ?>',
+                                        '<?= $row['fname'] ?>',
+                                        '<?= $row['lname'] ?>',
+                                        '<?= $row['address'] ?>',
+                                        '<?= $row['phone'] ?>'
+                                    )">
                                         ✅ ตรวจสอบ
                                     </button>
+
+                                    <button class="btn-edit-user" onclick="cancelOrder('<?= $row['id']; ?>')">
+                                        ❌ ยกเลิก
+                                    </button>
+
+                                <?php elseif ($status == 'ยกเลิก'): ?>
+                                    ❌ ยกเลิกแล้ว
                                 <?php else: ?>
                                     ✔ เสร็จสิ้น
                                 <?php endif; ?>
@@ -96,6 +104,10 @@ $order = 1;
             <p><b>ชื่อ:</b> <span id="show_name"></span></p>
             <p><b>ที่อยู่:</b> <span id="show_address"></span></p>
             <p><b>เบอร์โทร:</b> <span id="show_phone"></span></p>
+            <hr>
+            <p><b>รายการสินค้า</b></p>
+            <ul id="product_list"></ul>
+
 
             <div class="modal-footer">
                 <button class="btn-confirm" onclick="approvePayment()">✅ อนุมัติ</button>
@@ -107,11 +119,37 @@ $order = 1;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function openApproveModal(id, total, fname, lname, address, phone) {
+            // ใส่ข้อมูลทั่วไป
             document.getElementById('payment_id').value = id;
             document.getElementById('show_total').innerText = total;
             document.getElementById('show_name').innerText = fname + ' ' + lname;
             document.getElementById('show_address').innerText = address;
             document.getElementById('show_phone').innerText = phone;
+
+            // 🔥 ตรงนี้แหละ fetch
+            let list = document.getElementById('product_list');
+            list.innerHTML = 'กำลังโหลดสินค้า...';
+
+            fetch('get_order_products.php?payment_id=' + id)
+                .then(res => res.json())
+                .then(data => {
+                    list.innerHTML = '';
+
+                    if (data.length === 0) {
+                        list.innerHTML = '<li>ไม่พบรายการสินค้า</li>';
+                    }
+
+                    data.forEach(item => {
+                        list.innerHTML += `
+                            <li>
+                                🧸 ID: ${item.product_id} |
+                                ${item.product_name} × ${item.qty}
+                            </li>
+                        `;
+                    });
+                });
+
+            // เปิด modal
             document.getElementById('approveModal').style.display = 'flex';
         }
 
@@ -164,6 +202,23 @@ $order = 1;
             document.getElementById('approveModal').style.display = 'none';
         }
 
+        function cancelOrder(orderId) {
+            Swal.fire({
+                title: 'ยืนยันการยกเลิก?',
+                text: 'คุณต้องการยกเลิกออเดอร์นี้ใช่หรือไม่',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'ยกเลิกออเดอร์',
+                cancelButtonText: 'ไม่'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'cancel_order.php?id=' + orderId;
+                }
+            });
+        }
+
     </script>
 
     <style>
@@ -210,8 +265,6 @@ $order = 1;
             background: #fef3c7;
             color: #92400e;
         }
-
-        /* .user { background: #e3f2fd; color: #1976d2; } .admin { background: #fce4ec; color: #d81b60; } */
         .btn-edit-user {
             background: #fff;
             border: 1px solid #ddd;

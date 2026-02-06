@@ -37,6 +37,7 @@
             <table class="styled-table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>รูปภาพ</th>
                         <th>ชื่อตุ๊กตา</th>
                         <th>ราคา</th>
@@ -48,6 +49,7 @@
                 <tbody>
                     <?php while($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
+                            <td><?php echo $row["id"]; ?></td>
                             <td><img src="upload/<?= $row['image'] ?>" class="table-img"></td>
                             <td><?php echo $row["name"]; ?></td>
                             <td><?php echo $row["price"]; ?></td>
@@ -81,6 +83,7 @@
         </div>
     </div>
 
+    <!-- เพิ่มสินค้า -->
     <div id="addProductModal" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
@@ -132,6 +135,7 @@
         </div>
     </div>
 
+    <!-- แก้ไขสินค้า -->
     <div id="editProductModal" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">

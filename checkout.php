@@ -65,7 +65,7 @@
 
                 <ul class="list-group mb-3">
 
-                    <?php foreach($_SESSION['cart'] as $item): 
+                    <?php foreach($_SESSION['cart'] as $item):
                         $sum = $item['price'] * $item['qty'];
                         $total += $sum;
                         $count += $item['qty'];

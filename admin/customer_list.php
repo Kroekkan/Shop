@@ -70,6 +70,13 @@
                                 )">
                                     📝 แก้ไข
                                 </button>
+
+                                <form action="delete_customer.php" method="POST" style="display:inline;"
+                                    onsubmit="return confirm('คุณต้องการลบสินค้านี้จริงหรือไม่?');">
+                                    <input type="hidden" name="id_account" value="<?= $row['id_account']; ?>">
+                                    <button type="submit" class="btn-delete">🗑️ ลบ</button>
+                                </form>
+
                             </td>
                         </tr>
                     <?php } ?>
@@ -78,6 +85,7 @@
         </div>
     </div>
 
+    <!-- แก้ไขข้อมูล -->
     <div id="editCustomerModal" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">

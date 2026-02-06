@@ -11,8 +11,7 @@ if (!isset($_SESSION['role_account']) || $_SESSION['role_account'] !== 'Admin') 
 require 'connect.php';
 
 $sql = "SELECT * FROM payment 
-        WHERE status IN ('ชำระเงินแล้ว','ไม่อนุมัติ')
-        ORDER BY id DESC";
+        WHERE status IN ('ชำระเงินแล้ว','ยกเลิก')";
 $result = mysqli_query($connect, $sql);
 
 $order = 1;
@@ -57,7 +56,7 @@ $order = 1;
                                 </a>
                             </td>
                             <td>
-                                <span class="badge <?= $row['status']=='ชำระเงินแล้ว' ? 'success' : 'warning' ?>">
+                                <span class="badge <?= $row['status']=='ชำระเงินแล้ว' ? 'success' : 'cancel' ?>">
                                     <?= $row['status'] ?>
                                 </span>
                             </td>
@@ -95,6 +94,9 @@ $order = 1;
             <p><b>ชื่อ:</b> <span id="show_name"></span></p>
             <p><b>ที่อยู่:</b> <span id="show_address"></span></p>
             <p><b>เบอร์โทร:</b> <span id="show_phone"></span></p>
+            <hr>
+            <p><b>รายการสินค้า</b></p>
+            <ul id="product_list"></ul>
 
             <div class="modal-footer">
                 <button class="btn-cancel" onclick="closeModal()">ยกเลิก</button>
@@ -105,57 +107,38 @@ $order = 1;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function openApproveModal(id, total, fname, lname, address, phone) {
+            // ใส่ข้อมูลทั่วไป
             document.getElementById('payment_id').value = id;
             document.getElementById('show_total').innerText = total;
             document.getElementById('show_name').innerText = fname + ' ' + lname;
             document.getElementById('show_address').innerText = address;
             document.getElementById('show_phone').innerText = phone;
-            document.getElementById('approveModal').style.display = 'flex';
-        }
 
-        function approvePayment() {
-            let id = document.getElementById('payment_id').value;
+            // 🔥 ตรงนี้แหละ fetch
+            let list = document.getElementById('product_list');
+            list.innerHTML = 'กำลังโหลดสินค้า...';
 
-            Swal.fire({
-                title: 'ยืนยันการอนุมัติ?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'อนุมัติ',
-                cancelButtonText: 'ยกเลิก'
-            }).then((result) => {
-                if (result.isConfirmed) {
+            fetch('get_order_products.php?payment_id=' + id)
+                .then(res => res.json())
+                .then(data => {
+                    list.innerHTML = '';
 
-                    fetch('approve_payment.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: 'id=' + id
-                    })
-                    .then(res => res.text())
-                    .then(res => {
-                        if (res === 'success') {
+                    if (data.length === 0) {
+                        list.innerHTML = '<li>ไม่พบรายการสินค้า</li>';
+                    }
 
-                            // ปิด modal
-                            closeModal();
-
-                            // แจ้งผล
-                            setTimeout(() => {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'อนุมัติสำเร็จ',
-                                    timer: 1500,
-                                    showConfirmButton: false,
-                                }).then(() => location.reload());
-                            }, 300);
-
-                        } else {
-                            Swal.fire('ผิดพลาด', 'ไม่สามารถอนุมัติได้', 'error');
-                        }
+                    data.forEach(item => {
+                        list.innerHTML += `
+                            <li>
+                                🧸 ID: ${item.product_id} |
+                                ${item.product_name} × ${item.qty}
+                            </li>
+                        `;
                     });
+                });
 
-                }
-            });
+            // เปิด modal
+            document.getElementById('approveModal').style.display = 'flex';
         }
 
         function closeModal() {
@@ -195,6 +178,10 @@ $order = 1;
         .badge.pending {
             background: #fff3cd;
             color: #856404;
+        }
+        .badge.cancel {
+            background: #ffafaf;
+            color: #6c0000;
         }
         .badge.paid {
             background: #d1e7dd;

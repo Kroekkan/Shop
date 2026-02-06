@@ -1,6 +1,7 @@
 <?php
 $error = "";
 
+// เช็คข้อมูลบัญชีว่ามีในฐานข้อมูลมั้ย
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 'user_not_found') {
         $error = "❌ ไม่พบบัญชีผู้ใช้นี้";
