@@ -99,15 +99,15 @@
                             class="w-full h-full object-cover brightness-50">
                     </div>
                     <div data-carousel-item class="duration-700 ease-in-out">
-                        <img src="px/2.png"
+                        <img src="px/ChatGPT_Image_6_.._2569_09_39_19.png"
                             class="w-full h-full object-cover brightness-50">
                     </div>
                     <div data-carousel-item class="hidden duration-700 ease-in-out">
-                        <img src="px/3.png"
+                        <img src="px/ChatGPT_Image_6_.._2569_09_39_22.png"
                             class="w-full h-full object-cover brightness-50">
                     </div>
                     <div data-carousel-item class="duration-700 ease-in-out">
-                        <img src="px/2.png"
+                        <img src="px/ChatGPT_Image_6_.._2569_09_39_23.png"
                             class="w-full h-full object-cover brightness-50">
                     </div>
                 </div>
